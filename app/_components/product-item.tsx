@@ -19,7 +19,7 @@ interface ProductItemProps {
 
 function ProductItem({ product }: ProductItemProps) {
   return (
-    <Link href={`/product/${product.id}`} className="w-[150px] min-w-[150px]">
+    <Link href={`/products/${product.id}`} className="w-[150px] min-w-[150px]">
       <div className="space-y-2">
         <div className="relative h-[150px] w-full">
           <Image
