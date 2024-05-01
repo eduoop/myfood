@@ -56,7 +56,7 @@ export default async function Home() {
             className="h-fit cursor-pointer p-0 text-primary hover:bg-transparent hover:text-primary/75"
           >
             <div>
-              <Link href="/">Ver Todos</Link>
+              <Link href="/products/recommended">Ver Todos</Link>
               <ChevronRightIcon size={16} />
             </div>
           </Button>
