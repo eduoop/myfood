@@ -33,13 +33,14 @@ interface ProductDetailProps {
 
 function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
   const [quantity, setQuantity] = useState(1);
+  const maxQuantity = 10;
 
   const handleIncreaseQuantity = () => {
     setQuantity((prevQuantity) => {
-      if (prevQuantity < 10) {
+      if (prevQuantity < maxQuantity) {
         return prevQuantity + 1;
       }
-      return 10;
+      return maxQuantity;
     });
   };
 
@@ -96,17 +97,22 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
         </div>
 
         {/* Quantidade */}
-        <div className="flex items-center gap-3 text-center">
+        <div className="flex select-none items-center gap-3 text-center">
           <Button
             size={"icon"}
             variant={"ghost"}
             className="border border-solid border-muted-foreground"
             onClick={handleDecreaseQuantity}
+            disabled={quantity === 1}
           >
             <ChevronLeftIcon />
           </Button>
           <span className="w-4">{quantity}</span>
-          <Button size={"icon"} onClick={handleIncreaseQuantity}>
+          <Button
+            disabled={quantity === maxQuantity}
+            size={"icon"}
+            onClick={handleIncreaseQuantity}
+          >
             <ChevronRightIcon />
           </Button>
         </div>
