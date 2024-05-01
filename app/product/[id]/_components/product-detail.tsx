@@ -53,7 +53,7 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
   };
 
   return (
-    <div className="py-5">
+    <div className="relative mt-[-1.5rem] rounded-t-3xl bg-white py-6">
       <div className="flex items-center gap-[0.375rem] px-5">
         <div className="relative h-6 w-6">
           <Image
@@ -138,13 +138,9 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
               <TimerIcon size={14} />
             </div>
 
-            {Number(product.restaurant.deliveryFee) > 0 ? (
-              <p className="text-xs font-semibold">
-                {formatCurrency(Number(product.restaurant.deliveryFee))}
-              </p>
-            ) : (
-              <p className="text-sm font-semibold">Grátis</p>
-            )}
+            <p className="text-sm font-semibold">
+              {product.restaurant.deliveryTimeMinutes} min
+            </p>
           </div>
         </Card>
       </div>
