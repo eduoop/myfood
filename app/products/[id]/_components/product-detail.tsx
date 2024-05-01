@@ -1,5 +1,6 @@
 "use client";
 
+import DeliveryDetail from "@/app/_components/delivery-detail";
 import DiscountBadge from "@/app/_components/discount-badge";
 import ProductsList from "@/app/_components/products-list";
 import { Button } from "@/app/_components/ui/button";
@@ -120,35 +121,7 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
 
       {/* DADOS DA ENTREGA */}
       <div className="px-5">
-        <Card className="mt-6 flex justify-around py-3 ">
-          {/* CUSTO */}
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <span className="text-xs">Entrega</span>
-              <BikeIcon size={14} />
-            </div>
-
-            {Number(product.restaurant.deliveryFee) > 0 ? (
-              <p className="text-xs font-semibold">
-                {formatCurrency(Number(product.restaurant.deliveryFee))}
-              </p>
-            ) : (
-              <p className="text-sm font-semibold">Grátis</p>
-            )}
-          </div>
-
-          {/* TEMPO */}
-          <div className="flex flex-col items-center">
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <span className="text-xs">Entrega</span>
-              <TimerIcon size={14} />
-            </div>
-
-            <p className="text-sm font-semibold">
-              {product.restaurant.deliveryTimeMinutes} min
-            </p>
-          </div>
-        </Card>
+        <DeliveryDetail restaurant={product.restaurant} />
       </div>
 
       {/* DESCRIÇÂO */}
