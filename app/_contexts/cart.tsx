@@ -58,6 +58,8 @@ export const CartContext = createContext<ICartContext>({
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
 
+  const restaurantDeliveryFee = Number(products?.[0]?.restaurant?.deliveryFee);
+
   const subTotalPrice = useMemo(() => {
     return products.reduce((acc, product) => {
       return acc + Number(product.price) * product.quantity;
@@ -66,15 +68,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const totalPrice = useMemo(() => {
     console.log(products);
-    return products.reduce(
-      (acc, product) => {
-        return acc + calculateProductTotalPrice(product) * product.quantity;
-      },
-      0 - Number(products?.[0]?.restaurant?.deliveryFee),
-    );
-  }, [products]);
+    return products.reduce((acc, product) => {
+      return acc + calculateProductTotalPrice(product) * product.quantity;
+    }, 0 + restaurantDeliveryFee);
+  }, [products, restaurantDeliveryFee]);
 
-  const totalDiscount = subTotalPrice - totalPrice;
+  const totalDiscount = subTotalPrice - totalPrice + restaurantDeliveryFee;
 
   const addProductToCart = ({
     product,
