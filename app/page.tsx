@@ -32,7 +32,11 @@ export default async function Home() {
       <Header />
 
       <div className="px-5 pt-6">
-        <Search />
+        <Search
+          defaultValues={{
+            search: "",
+          }}
+        />
       </div>
 
       <div className="px-5 pt-6">
