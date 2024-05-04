@@ -8,12 +8,14 @@ import {
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Separator } from "@/app/_components/ui/separator";
+import { CartContext } from "@/app/_contexts/cart";
 import { formatCurrency } from "@/app/_helpers/price";
 import { cn } from "@/app/_lib/utils";
 import { Order, OrderStatus, Prisma } from "@prisma/client";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useContext } from "react";
 
 interface OrderItemProps {
   order: Prisma.OrderGetPayload<{
@@ -29,6 +31,9 @@ interface OrderItemProps {
 }
 
 function OrderItem({ order }: OrderItemProps) {
+  const { addProductToCart } = useContext(CartContext);
+  const router = useRouter();
+
   const getOrderStatusLabel = (status: OrderStatus) => {
     switch (status) {
       case "CANCELED":
@@ -42,6 +47,16 @@ function OrderItem({ order }: OrderItemProps) {
       case "PREPARING":
         return "Preparando";
     }
+  };
+
+  const handlerRedoOrder = () => {
+    for (const orderProduct of order.products) {
+      addProductToCart({
+        product: { ...orderProduct.product, restaurant: order.restaurant },
+        quantity: orderProduct.quantity,
+      });
+    }
+    router.push(`/restaurants/${order.restaurant.id}`);
   };
 
   return (
@@ -117,6 +132,7 @@ function OrderItem({ order }: OrderItemProps) {
             variant={"ghost"}
             className="text-xs text-primary"
             size={"sm"}
+            onClick={handlerRedoOrder}
           >
             Pedir novamente
           </Button>
