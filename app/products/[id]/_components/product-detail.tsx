@@ -186,7 +186,7 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
           <SheetHeader>
             <SheetTitle className="text-left">Sacola</SheetTitle>
           </SheetHeader>
-          <Cart />
+          <Cart setIsOpen={setIsCartOpen} />
         </SheetContent>
       </Sheet>
 

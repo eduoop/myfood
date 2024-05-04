@@ -21,10 +21,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/app/_components/ui/alert-dialog";
+import { useToast } from "@/app/_components/ui/use-toast";
+import { ToastAction } from "./ui/toast";
+import { useRouter } from "next/navigation";
 
-function Cart() {
+interface CartProps {
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+function Cart({ setIsOpen }: CartProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isConfirmedOpen, setIsConfirmedOpen] = useState(false);
+  const { toast } = useToast();
+  const router = useRouter();
 
   const { products, subTotalPrice, totalDiscount, totalPrice, clearCart } =
     useContext(CartContext);
@@ -64,6 +73,19 @@ function Cart() {
         },
       });
       clearCart();
+      setIsOpen(false);
+      toast({
+        title: "Pedido finalizado com sucesso ",
+        description: "Você pode acompanha-lo na tela de seus pedidos",
+        action: (
+          <ToastAction
+            onClick={() => router.push("/my-orders")}
+            altText="Goto schedule to undo"
+          >
+            Acompanhar
+          </ToastAction>
+        ),
+      });
     } catch (err) {
       console.log(err);
     } finally {
