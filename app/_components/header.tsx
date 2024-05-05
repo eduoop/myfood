@@ -119,9 +119,17 @@ function Header() {
                 <Button
                   variant={"ghost"}
                   className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                  asChild
                 >
-                  <HeartIcon size={16} className="min-h-[16px] min-w-[16px]" />
-                  <span className="block truncate">Restaurantes favoritos</span>
+                  <Link href={"/my-favorite-restaurants"}>
+                    <HeartIcon
+                      size={16}
+                      className="min-h-[16px] min-w-[16px]"
+                    />
+                    <span className="block truncate">
+                      Restaurantes favoritos
+                    </span>
+                  </Link>
                 </Button>
               </>
             )}

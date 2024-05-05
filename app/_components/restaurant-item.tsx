@@ -26,7 +26,7 @@ function RestaurantItem({
   userFavoritesRestaurants,
 }: RestaurantItemProps) {
   const { toast } = useToast();
-  const isFavorite = userFavoritesRestaurants.some(
+  const isFavorite = userFavoritesRestaurants?.some(
     (fav) => fav.restaurantId === restaurant.id,
   );
   const { data } = useSession();
