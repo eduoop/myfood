@@ -38,14 +38,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  orders        Order[]
+  id                  String                   @id @default(cuid())
+  name                String?
+  email               String?                  @unique
+  emailVerified       DateTime?                @map("email_verified")
+  image               String?
+  accounts            Account[]
+  sessions            Session[]
+  orders              Order[]
+  favoriteRestaurants UserFavoriteRestaurant[]
 
   @@map("users")
 }
@@ -60,14 +61,15 @@ model VerificationToken {
 }
 
 model Restaurant {
-  id                  String     @id @default(uuid())
+  id                  String                   @id @default(uuid())
   name                String
   imageUrl            String
-  deliveryFee         Decimal    @db.Decimal(10, 2)
+  deliveryFee         Decimal                  @db.Decimal(10, 2)
   deliveryTimeMinutes Int
   categories          Category[]
   products            Product[]
   orders              Order[]
+  usersWhoFavorited   UserFavoriteRestaurant[]
 }
 
 model Category {
@@ -91,7 +93,7 @@ model Product {
   categoryId         String
   category           Category       @relation(fields: [categoryId], references: [id])
   createdAt          DateTime       @default(now())
-  orderProducts       OrderProduct[]
+  orderProducts      OrderProduct[]
 }
 
 enum OrderStatus {
@@ -125,4 +127,13 @@ model Order {
   totalDiscounts      Decimal        @db.Decimal(10, 2)
   createdAt           DateTime       @default(now())
   status              OrderStatus
+}
+
+model UserFavoriteRestaurant {
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  @@id([userId, restaurantId])
 }
