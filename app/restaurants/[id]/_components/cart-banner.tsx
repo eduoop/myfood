@@ -1,6 +1,6 @@
 "use client";
 import { CartContext } from "@/app/_contexts/cart";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Restaurant } from "@prisma/client";
 import { formatCurrency } from "@/app/_helpers/price";
 import { Button } from "@/app/_components/ui/button";
@@ -19,6 +19,8 @@ interface CartBannerProps {
 
 function CartBanner({ restaurant }: CartBannerProps) {
   const { products, totalPrice, totalQuantity } = useContext(CartContext);
+
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const restaurantHasProductOnCart = products.filter(
     (product) => product.restaurantId === restaurant.id,
@@ -43,15 +45,13 @@ function CartBanner({ restaurant }: CartBannerProps) {
               </span>
             </h3>
           </div>
-          <Sheet>
-            <SheetTrigger>
-              <Button>Ver sacola</Button>
-            </SheetTrigger>
+          <Button onClick={() => setIsCartOpen(true)}>Ver sacola</Button>
+          <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
             <SheetContent className="w-[85vw]">
               <SheetHeader>
                 <SheetTitle className="text-left">Sacola</SheetTitle>
               </SheetHeader>
-              <Cart />
+              <Cart setIsOpen={setIsCartOpen} />
             </SheetContent>
           </Sheet>
         </div>
