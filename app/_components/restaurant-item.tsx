@@ -12,37 +12,37 @@ import {
   unfavoriteRestaurant,
 } from "../_actions/restaurant";
 import { useToast } from "@/app/_components/ui/use-toast";
+import { useSession } from "next-auth/react";
 
 interface RestaurantItemProps {
   restaurant: Restaurant;
   className?: string;
-  userId?: string;
   userFavoritesRestaurants: UserFavoriteRestaurant[];
 }
 
 function RestaurantItem({
   restaurant,
   className,
-  userId,
   userFavoritesRestaurants,
 }: RestaurantItemProps) {
   const { toast } = useToast();
   const isFavorite = userFavoritesRestaurants.some(
     (fav) => fav.restaurantId === restaurant.id,
   );
+  const { data } = useSession();
 
   const handleFavoriteClick = async () => {
-    if (!userId) {
+    if (!data?.user.id) {
       return;
     }
 
     if (isFavorite) {
-      unfavoriteRestaurant(userId, restaurant.id);
+      unfavoriteRestaurant(data.user.id, restaurant.id);
       return toast({ title: "Restaurante removido dos favoritos" });
     }
 
     try {
-      await favoriteRestaurant(userId, restaurant.id);
+      await favoriteRestaurant(data.user.id, restaurant.id);
       toast({ title: "Restaurante favoritado com sucesso!" });
     } catch (error) {
       toast({ title: "Erro ao favoritar o restaurante" });
@@ -67,7 +67,7 @@ function RestaurantItem({
             <span className="text-xs font-semibold">5.0</span>
           </div>
 
-          {userId && (
+          {data?.user.id && (
             <Button
               className={`absolute right-2 top-2 h-7 w-7 rounded-full bg-gray-700 hover:bg-red-900 ${isFavorite && "bg-primary transition duration-300 hover:bg-gray-700"}`}
               size={"icon"}
