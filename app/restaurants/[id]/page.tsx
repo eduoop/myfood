@@ -1,5 +1,5 @@
 import { db } from "@/app/_lib/prisma";
-import { Restaurant } from "@prisma/client";
+import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
 import { notFound } from "next/navigation";
 import React from "react";
 import RestaurantImage from "./_components/restaurant-image";
@@ -8,6 +8,9 @@ import { StarIcon } from "lucide-react";
 import DeliveryDetail from "@/app/_components/delivery-detail";
 import ProductsList from "@/app/_components/products-list";
 import CartBanner from "./_components/cart-banner";
+import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/_lib/auth";
 
 interface RestaurantPageProps {
   params: {
@@ -57,9 +60,20 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
     return notFound();
   }
 
+  const session = await getServerSession(authOptions);
+
+  const userFavoritesRestaurants = await db.userFavoriteRestaurant.findMany({
+    where: {
+      userId: session?.user.id,
+    },
+  });
+
   return (
     <div className="mb-24">
-      <RestaurantImage restaurant={restaurant} />
+      <RestaurantImage
+        restaurant={restaurant}
+        userFavoritesRestaurants={userFavoritesRestaurants}
+      />
 
       <div className="relative mt-[-1.5rem] flex items-center justify-between rounded-t-3xl bg-white px-5 py-6 pt-5">
         {/* TITULO */}

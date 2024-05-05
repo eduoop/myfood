@@ -13,11 +13,13 @@ import {
 } from "../_actions/restaurant";
 import { useToast } from "@/app/_components/ui/use-toast";
 import { useSession } from "next-auth/react";
+import { isRestaurantCurrentlyFavorite } from "../_helpers/restaurant";
+import useFavoriteRestaurant from "../_hooks/use-favorite-restaurant";
 
 interface RestaurantItemProps {
   restaurant: Restaurant;
   className?: string;
-  userFavoritesRestaurants: UserFavoriteRestaurant[];
+  userFavoritesRestaurants?: UserFavoriteRestaurant[];
 }
 
 function RestaurantItem({
@@ -25,29 +27,19 @@ function RestaurantItem({
   className,
   userFavoritesRestaurants,
 }: RestaurantItemProps) {
-  const { toast } = useToast();
-  const isFavorite = userFavoritesRestaurants?.some(
-    (fav) => fav.restaurantId === restaurant.id,
+  const isFavorite = isRestaurantCurrentlyFavorite(
+    userFavoritesRestaurants,
+    restaurant.id,
   );
+
   const { data } = useSession();
 
-  const handleFavoriteClick = async () => {
-    if (!data?.user.id) {
-      return;
-    }
-
-    if (isFavorite) {
-      unfavoriteRestaurant(data.user.id, restaurant.id);
-      return toast({ title: "Restaurante removido dos favoritos" });
-    }
-
-    try {
-      await favoriteRestaurant(data.user.id, restaurant.id);
-      toast({ title: "Restaurante favoritado com sucesso!" });
-    } catch (error) {
-      toast({ title: "Erro ao favoritar o restaurante" });
-    }
-  };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { handleFavoriteClick } = useFavoriteRestaurant({
+    restaurantId: restaurant.id,
+    isFavorite: isFavorite,
+    userId: data?.user.id,
+  });
 
   return (
     <div className={cn("min-w-[266px] max-w-[266px]", className)}>
@@ -69,7 +61,13 @@ function RestaurantItem({
 
           {data?.user.id && (
             <Button
-              className={`absolute right-2 top-2 h-7 w-7 rounded-full bg-gray-700 hover:bg-red-900 ${isFavorite && "bg-primary transition duration-300 hover:bg-gray-700"}`}
+              className={cn(
+                `absolute right-2 top-2 h-7 w-7 rounded-full bg-gray-700 hover:bg-red-900`,
+                {
+                  "bg-primary transition duration-300 hover:bg-gray-700":
+                    isFavorite,
+                },
+              )}
               size={"icon"}
               onClick={handleFavoriteClick}
             >
