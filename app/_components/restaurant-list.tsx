@@ -3,6 +3,7 @@ import { db } from "../_lib/prisma";
 import RestaurantItem from "./restaurant-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../_lib/auth";
+import { convertObjectWithDecimal } from "../_helpers/convert-object-with-decimal";
 
 async function RestaurantList() {
   // TODO: trazer restaurantes com maior número de pedidos
@@ -23,7 +24,7 @@ async function RestaurantList() {
       {restaurants.map((restaurant) => (
         <RestaurantItem
           key={restaurant.id}
-          restaurant={restaurant}
+          restaurant={convertObjectWithDecimal(restaurant)}
           userFavoritesRestaurants={userFavoritesRestaurants}
         />
       ))}

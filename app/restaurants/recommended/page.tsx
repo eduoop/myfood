@@ -1,6 +1,7 @@
 import Header from "@/app/_components/header";
 import RestaurantItem from "@/app/_components/restaurant-item";
 import RestaurantList from "@/app/_components/restaurant-list";
+import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
 import { authOptions } from "@/app/_lib/auth";
 import { db } from "@/app/_lib/prisma";
 import { getServerSession } from "next-auth";
@@ -32,7 +33,7 @@ async function RecommendedRestaurants() {
           {restaurants.map((restaurant) => (
             <RestaurantItem
               key={restaurant.id}
-              restaurant={restaurant}
+              restaurant={convertObjectWithDecimal(restaurant)}
               className="min-w-full max-w-full"
               userFavoritesRestaurants={userFavoritesRestaurants}
             />

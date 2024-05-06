@@ -6,6 +6,7 @@ import searchForRestaurant from "../_actions/search";
 import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
 import Header from "../../_components/header";
 import RestaurantItem from "../../_components/restaurant-item";
+import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
 
 interface RestaurantsProps {
   userFavoritesRestaurants?: UserFavoriteRestaurant[];
@@ -41,7 +42,7 @@ function Restaurants({ userFavoritesRestaurants }: RestaurantsProps) {
           {restaurants.map((restaurant) => (
             <RestaurantItem
               key={restaurant.id}
-              restaurant={restaurant}
+              restaurant={convertObjectWithDecimal(restaurant)}
               className="min-w-full max-w-full"
               userFavoritesRestaurants={userFavoritesRestaurants}
             />

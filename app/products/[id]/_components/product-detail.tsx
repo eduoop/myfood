@@ -37,6 +37,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/app/_components/ui/alert-dialog";
+import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
 
 interface ProductDetailProps {
   product: Prisma.ProductGetPayload<{
@@ -160,7 +161,9 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
 
         {/* DADOS DA ENTREGA */}
         <div className="px-5">
-          <DeliveryDetail restaurant={product.restaurant} />
+          <DeliveryDetail
+            restaurant={convertObjectWithDecimal(product.restaurant)}
+          />
         </div>
 
         {/* DESCRIÇÂO */}

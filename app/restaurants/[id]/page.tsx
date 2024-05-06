@@ -11,6 +11,7 @@ import CartBanner from "./_components/cart-banner";
 import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/_lib/auth";
+import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
 
 interface RestaurantPageProps {
   params: {
@@ -71,7 +72,7 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
   return (
     <div className="mb-24">
       <RestaurantImage
-        restaurant={restaurant}
+        restaurant={convertObjectWithDecimal(restaurant)}
         userFavoritesRestaurants={userFavoritesRestaurants}
       />
 
@@ -97,7 +98,7 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
       </div>
 
       <div className="px-5">
-        <DeliveryDetail restaurant={restaurant} />
+        <DeliveryDetail restaurant={convertObjectWithDecimal(restaurant)} />
       </div>
 
       <div className="mt-3 flex gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
@@ -126,7 +127,7 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
           <ProductsList products={category.products} />
         </div>
       ))}
-      <CartBanner restaurant={restaurant} />
+      <CartBanner restaurant={convertObjectWithDecimal(restaurant)} />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Header from "../_components/header";
 import RestaurantItem from "../_components/restaurant-item";
 import Link from "next/link";
+import { convertObjectWithDecimal } from "../_helpers/convert-object-with-decimal";
 
 async function MyFavoriteRestaurants() {
   const session = await getServerSession(authOptions);
@@ -35,7 +36,7 @@ async function MyFavoriteRestaurants() {
             {userFavoriteRestaurants.map(({ restaurant }) => (
               <RestaurantItem
                 key={restaurant.id}
-                restaurant={restaurant}
+                restaurant={convertObjectWithDecimal(restaurant)}
                 className="min-w-full max-w-full"
                 userFavoritesRestaurants={userFavoriteRestaurants}
               />
