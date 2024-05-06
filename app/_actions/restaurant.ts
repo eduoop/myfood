@@ -7,8 +7,6 @@ export const favoriteRestaurant = async (
   userId: string,
   restaurantId: string,
 ) => {
-  console.log({ userId, restaurantId });
-
   await db.userFavoriteRestaurant.create({
     data: {
       restaurantId: restaurantId,

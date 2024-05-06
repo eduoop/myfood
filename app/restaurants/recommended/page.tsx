@@ -18,8 +18,6 @@ async function RecommendedRestaurants() {
     },
   });
 
-  console.log(restaurants);
-
   return (
     <>
       <Header />
