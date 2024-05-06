@@ -22,6 +22,7 @@ function ProductImage({ product }: ProductImageProps) {
       <Image
         className="object-cover"
         src={product.imageUrl}
+        sizes="100%"
         alt={product.name}
         fill
       />

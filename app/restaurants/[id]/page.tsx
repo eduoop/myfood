@@ -82,6 +82,7 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
           <div className="relative h-8 w-8">
             <Image
               src={restaurant.imageUrl}
+              sizes="100%"
               alt={restaurant.name}
               fill
               className="rounded-full object-cover"

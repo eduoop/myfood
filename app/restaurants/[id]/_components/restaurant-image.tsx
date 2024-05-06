@@ -43,6 +43,7 @@ function RestaurantImage({
       <Image
         className="object-cover"
         src={restaurant.imageUrl}
+        sizes="100%"
         alt={restaurant.name}
         fill
       />

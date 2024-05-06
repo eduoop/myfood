@@ -47,6 +47,7 @@ function RestaurantItem({
         <div className="relative h-[136px] w-full">
           <Link href={`/restaurants/${restaurant.id}`}>
             <Image
+              sizes="100%"
               src={restaurant.imageUrl}
               alt={restaurant.name}
               className="rounded-lg object-cover"

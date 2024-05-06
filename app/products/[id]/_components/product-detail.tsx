@@ -101,6 +101,7 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
             <Image
               src={product.restaurant.imageUrl}
               alt={product.restaurant.name}
+              sizes="100%"
               fill
               className="rounded-full object-cover"
             />

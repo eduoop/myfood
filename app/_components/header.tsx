@@ -40,7 +40,13 @@ function Header() {
     <div className="flex justify-between px-5 pt-6">
       <Link href={"/"}>
         <div className="relative h-[30px] w-[100px]">
-          <Image src="/logo.png" alt="iclone" fill className="object-contain" />
+          <Image
+            src="/logo.png"
+            alt="iclone"
+            sizes="100%"
+            fill
+            className="object-contain"
+          />
         </div>
       </Link>
 

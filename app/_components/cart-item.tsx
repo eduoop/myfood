@@ -29,7 +29,7 @@ function CartItem({ cartProduct }: CartItemProps) {
           <Image
             fill
             className="rounded-lg object-cover"
-            sizes="100vw"
+            sizes="100%"
             src={cartProduct.imageUrl}
             alt={cartProduct.name}
           />

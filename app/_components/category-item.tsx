@@ -16,6 +16,7 @@ function CategoryItem({ category }: CategoryItemProps) {
       <Image
         src={category.imageUrl}
         alt={category.name}
+        sizes="100%"
         height={30}
         width={30}
       />
