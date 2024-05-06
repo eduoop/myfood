@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import { CartContext, CartProduct } from "../_contexts/cart";
 import Image from "next/image";
 import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
@@ -89,4 +89,4 @@ function CartItem({ cartProduct }: CartItemProps) {
   );
 }
 
-export default CartItem;
+export default memo(CartItem);

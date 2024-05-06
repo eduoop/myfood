@@ -10,21 +10,45 @@ import PromoBanner from "./_components/promo-banner";
 import RestaurantList from "./_components/restaurant-list";
 
 export default async function Home() {
-  const products = await db.product.findMany({
-    where: {
-      discountPercentage: {
-        gt: 0,
-      },
-    },
-    take: 10,
-    include: {
-      restaurant: {
-        select: {
-          name: true,
+  const fetch = async () => {
+    const getProducts = db.product.findMany({
+      where: {
+        discountPercentage: {
+          gt: 0,
         },
       },
-    },
-  });
+      take: 10,
+      include: {
+        restaurant: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+
+    const getBurgersCategory = db.category.findFirst({
+      where: {
+        name: "Hambúrgueres",
+      },
+    });
+
+    const getPizzasCategory = db.category.findFirst({
+      where: {
+        name: "Pizzas",
+      },
+    });
+
+    const [products, burgersCategory, pizzasCategory] = await Promise.all([
+      getProducts,
+      getBurgersCategory,
+      getPizzasCategory,
+    ]);
+
+    return { products, burgersCategory, pizzasCategory };
+  };
+
+  const { burgersCategory, pizzasCategory, products } = await fetch();
 
   return (
     <>
@@ -43,10 +67,12 @@ export default async function Home() {
       </div>
 
       <div className="px-5 pt-6">
-        <PromoBanner
-          src={"/promobanner-1.png"}
-          alt="Até 30% de descontos em pizzas"
-        />
+        <Link href={`/categories/${pizzasCategory?.id}/products`}>
+          <PromoBanner
+            src={"/promobanner-1.png"}
+            alt="Até 30% de descontos em pizzas"
+          />
+        </Link>
       </div>
 
       <div className="space-y-4 pt-6">
@@ -68,10 +94,12 @@ export default async function Home() {
       </div>
 
       <div className="px-5 pt-6">
-        <PromoBanner
-          src={"/promobanner-2.png"}
-          alt="Até 30% de descontos em pizzas"
-        />
+        <Link href={`/categories/${burgersCategory?.id}/products`}>
+          <PromoBanner
+            src={"/promobanner-2.png"}
+            alt="Até 30% de descontos em pizzas"
+          />
+        </Link>
       </div>
 
       <div className="space-y-4 px-5 pt-6">
