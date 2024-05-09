@@ -10,6 +10,7 @@ import PromoBanner from "./_components/promo-banner";
 import RestaurantList from "./_components/restaurant-list";
 import Image from "next/image";
 import ResponsiveSearch from "./_components/responsive-search";
+import ResponsiveCategoryList from "./_components/responsive-category-list";
 
 export default async function Home() {
   const fetch = async () => {
@@ -58,8 +59,8 @@ export default async function Home() {
 
       <ResponsiveSearch />
 
-      <div className="px-5 pt-6">
-        <CategoryList />
+      <div className="">
+        <ResponsiveCategoryList />
       </div>
 
       <div className="px-5 pt-6">

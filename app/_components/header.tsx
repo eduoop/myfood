@@ -37,7 +37,7 @@ function Header() {
   const isLogged = data?.user ? true : false;
 
   return (
-    <div className="flex justify-between px-5 pt-6">
+    <div className="flex justify-between px-5 pt-6 laptop:pb-2">
       <Link href={"/"}>
         <div className="relative h-[30px] w-[100px]">
           <Image
