@@ -45,7 +45,7 @@ function Search({ defaultValues }: SearchProps) {
               <FormControl>
                 <Input
                   placeholder="Buscar restaurantes"
-                  className="border-none"
+                  className="border-none tablet:text-[17px]"
                   {...field}
                 />
               </FormControl>
@@ -54,7 +54,7 @@ function Search({ defaultValues }: SearchProps) {
           )}
         />
 
-        <Button size={"icon"}>
+        <Button size={"icon"} className="tablet:aspect-square">
           <SearchIcon size={18} />
         </Button>
       </form>

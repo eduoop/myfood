@@ -8,6 +8,8 @@ import { ChevronRightIcon } from "lucide-react";
 import { db } from "./_lib/prisma";
 import PromoBanner from "./_components/promo-banner";
 import RestaurantList from "./_components/restaurant-list";
+import Image from "next/image";
+import ResponsiveSearch from "./_components/responsive-search";
 
 export default async function Home() {
   const fetch = async () => {
@@ -54,13 +56,7 @@ export default async function Home() {
     <>
       <Header />
 
-      <div className="px-5 pt-6">
-        <Search
-          defaultValues={{
-            search: "",
-          }}
-        />
-      </div>
+      <ResponsiveSearch />
 
       <div className="px-5 pt-6">
         <CategoryList />
