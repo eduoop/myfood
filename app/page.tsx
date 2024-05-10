@@ -20,7 +20,7 @@ export default async function Home() {
           gt: 0,
         },
       },
-      take: 10,
+      take: 7,
       include: {
         restaurant: {
           select: {
@@ -59,11 +59,42 @@ export default async function Home() {
 
       <ResponsiveSearch />
 
-      <div className="">
-        <ResponsiveCategoryList />
+      <ResponsiveCategoryList />
+
+      <div className="hidden space-y-4 laptop:block">
+        <div className="flex items-center justify-between px-44">
+          <h2 className="font-semibold">Pedidos Recomendados</h2>
+
+          <Button
+            asChild
+            variant={"ghost"}
+            className="h-fit cursor-pointer p-0 text-primary hover:bg-transparent hover:text-primary/75"
+          >
+            <div>
+              <Link href="/products/recommended">Ver Todos</Link>
+              <ChevronRightIcon size={16} />
+            </div>
+          </Button>
+        </div>
+        <ProductsList products={products} />
       </div>
 
-      <div className="px-5 pt-6">
+      <div className="my-10 hidden grid-cols-2 gap-5 px-44 laptop:grid">
+        <Link href={`/categories/${pizzasCategory?.id}/products`}>
+          <PromoBanner
+            src={"/promobanner-1.png"}
+            alt="Até 30% de descontos em pizzas"
+          />
+        </Link>
+        <Link href={`/categories/${pizzasCategory?.id}/products`}>
+          <PromoBanner
+            src={"/promobanner-2.png"}
+            alt="Até 30% de descontos em pizzas"
+          />
+        </Link>
+      </div>
+
+      <div className="px-5 pt-6 laptop:hidden">
         <Link href={`/categories/${pizzasCategory?.id}/products`}>
           <PromoBanner
             src={"/promobanner-1.png"}
@@ -72,7 +103,7 @@ export default async function Home() {
         </Link>
       </div>
 
-      <div className="space-y-4 pt-6">
+      <div className="space-y-4 pt-6 laptop:hidden">
         <div className="flex items-center justify-between px-5">
           <h2 className="font-semibold">Pedidos Recomendados</h2>
 
@@ -90,7 +121,7 @@ export default async function Home() {
         <ProductsList products={products} />
       </div>
 
-      <div className="px-5 pt-6">
+      <div className="px-5 pt-6 laptop:hidden">
         <Link href={`/categories/${burgersCategory?.id}/products`}>
           <PromoBanner
             src={"/promobanner-2.png"}
@@ -99,8 +130,8 @@ export default async function Home() {
         </Link>
       </div>
 
-      <div className="space-y-4 px-5 pt-6">
-        <div className="flex items-center justify-between px-5">
+      <div className="mb-24 space-y-4 pt-6 laptop:px-44">
+        <div className="flex items-center justify-between px-5 laptop:px-0">
           <h2 className="font-semibold">Restaurantes Recomendados</h2>
 
           <Button

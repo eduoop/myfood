@@ -42,9 +42,14 @@ function RestaurantItem({
   });
 
   return (
-    <div className={cn("min-w-[266px] max-w-[266px]", className)}>
+    <div
+      className={cn(
+        "min-w-[266px] max-w-[266px] tablet:min-w-full laptop:max-w-full",
+        className,
+      )}
+    >
       <div className="w-full space-y-3">
-        <div className="relative h-[136px] w-full">
+        <div className="relative h-[136px] w-full laptop:h-[165px]">
           <Link href={`/restaurants/${restaurant.id}`}>
             <Image
               sizes="100%"
@@ -78,7 +83,9 @@ function RestaurantItem({
         </div>
         <Link href={`/restaurants/${restaurant.id}`}>
           <div>
-            <h3 className="text-sm font-semibold">{restaurant.name}</h3>
+            <h3 className="laptop:text-md mt-2 text-sm font-semibold">
+              {restaurant.name}
+            </h3>
 
             <div className="flex gap-3">
               <div className="flex items-center gap-1">
