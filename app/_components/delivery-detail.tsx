@@ -14,27 +14,27 @@ function DeliveryDetail({ restaurant: restaurant }: DeliveryDetailProps) {
       {/* CUSTO */}
       <div className="flex flex-col items-center">
         <div className="flex items-center gap-1 text-muted-foreground">
-          <span className="text-xs">Entrega</span>
-          <BikeIcon size={14} />
+          <span className="text-xs laptop:text-[14px]">Entrega</span>
+          <BikeIcon className="h-[14px] w-[14px] laptop:h-[17px] laptop:w-[17px]" />
         </div>
 
         {Number(restaurant.deliveryFee) > 0 ? (
-          <p className="text-xs font-semibold">
+          <p className="text-xs font-semibold laptop:text-sm">
             {formatCurrency(Number(restaurant.deliveryFee))}
           </p>
         ) : (
-          <p className="text-sm font-semibold">Grátis</p>
+          <p className="text-x laptop:text-sms font-semibold">Grátis</p>
         )}
       </div>
 
       {/* TEMPO */}
       <div className="flex flex-col items-center">
         <div className="flex items-center gap-1 text-muted-foreground">
-          <span className="text-xs">Entrega</span>
-          <TimerIcon size={14} />
+          <span className="text-xs laptop:text-[14px]">Entrega</span>
+          <TimerIcon className="h-[14px] w-[14px] laptop:h-[17px] laptop:w-[17px]" />
         </div>
 
-        <p className="text-sm font-semibold">
+        <p className="text-xs font-semibold laptop:text-sm">
           {restaurant.deliveryTimeMinutes} min
         </p>
       </div>

@@ -12,6 +12,8 @@ import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/_lib/auth";
 import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
+import Header from "@/app/_components/header";
+import { TiStarFullOutline } from "react-icons/ti";
 
 interface RestaurantPageProps {
   params: {
@@ -70,66 +72,156 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
   });
 
   return (
-    <div className="mb-24">
-      <RestaurantImage
-        restaurant={convertObjectWithDecimal(restaurant)}
-        userFavoritesRestaurants={userFavoritesRestaurants}
-      />
+    <>
+      <div className="laptop:hidden">
+        <div className="mb-24">
+          <RestaurantImage
+            restaurant={convertObjectWithDecimal(restaurant)}
+            userFavoritesRestaurants={userFavoritesRestaurants}
+          />
 
-      <div className="relative mt-[-1.5rem] flex items-center justify-between rounded-t-3xl bg-white px-5 py-6 pt-5">
-        {/* TITULO */}
-        <div className="flex items-center gap-[0.375rem] ">
-          <div className="relative h-8 w-8">
-            <Image
-              src={restaurant.imageUrl}
-              sizes="100%"
-              alt={restaurant.name}
-              fill
-              className="rounded-full object-cover"
-            />
+          <div className="relative mt-[-1.5rem] flex items-center justify-between rounded-t-3xl bg-white px-5 py-6 pt-5">
+            {/* TITULO */}
+            <div className="flex items-center gap-[0.375rem] ">
+              <div className="relative h-8 w-8">
+                <Image
+                  src={restaurant.imageUrl}
+                  sizes="100%"
+                  alt={restaurant.name}
+                  fill
+                  className="rounded-full object-cover"
+                />
+              </div>
+
+              <h1 className="text-xl font-semibold">{restaurant.name}</h1>
+            </div>
+
+            <div className="flex items-center gap-[3px] rounded-full bg-foreground px-2 py-[2px] text-white">
+              <StarIcon size={12} className="fill-yellow-500 text-yellow-500" />
+              <span className="text-xs font-semibold">5.0</span>
+            </div>
           </div>
 
-          <h1 className="text-xl font-semibold">{restaurant.name}</h1>
-        </div>
-
-        <div className="flex items-center gap-[3px] rounded-full bg-foreground px-2 py-[2px] text-white">
-          <StarIcon size={12} className="fill-yellow-500 text-yellow-500" />
-          <span className="text-xs font-semibold">5.0</span>
-        </div>
-      </div>
-
-      <div className="px-5">
-        <DeliveryDetail restaurant={convertObjectWithDecimal(restaurant)} />
-      </div>
-
-      <div className="mt-3 flex gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
-        {restaurant.categories.map((category) => (
-          <div
-            key={category.id}
-            className="min-w-[167px] rounded-lg bg-[#f4f4f4] text-center"
-          >
-            <span className="text-sx text-muted-foreground">
-              {" "}
-              {category.name}
-            </span>
+          <div className="px-5">
+            <DeliveryDetail restaurant={convertObjectWithDecimal(restaurant)} />
           </div>
-        ))}
-      </div>
 
-      {/* TODO mostrar produtos mais pedidos */}
-      <div className="mt-6 space-y-4">
-        <h2 className="px-5 font-semibold">Mais pedidos</h2>
-        <ProductsList products={restaurant.products} />
-      </div>
+          <div className="mt-3 flex gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
+            {restaurant.categories.map((category) => (
+              <div
+                key={category.id}
+                className="min-w-[167px] rounded-lg bg-[#f4f4f4] text-center"
+              >
+                <span className="text-sx text-muted-foreground">
+                  {" "}
+                  {category.name}
+                </span>
+              </div>
+            ))}
+          </div>
 
-      {restaurant.categories.map((category) => (
-        <div className="mt-6 space-y-4" key={category.id}>
-          <h2 className="px-5 font-semibold">{category.name}</h2>
-          <ProductsList products={category.products} />
+          {/* TODO mostrar produtos mais pedidos */}
+          <div className="mt-6 space-y-4">
+            <h2 className="px-5 font-semibold">Mais pedidos</h2>
+            <ProductsList products={restaurant.products} />
+          </div>
+
+          {restaurant.categories.map((category) => (
+            <div className="mt-6 space-y-4" key={category.id}>
+              <h2 className="px-5 font-semibold">{category.name}</h2>
+              <ProductsList products={category.products} />
+            </div>
+          ))}
+          <CartBanner restaurant={convertObjectWithDecimal(restaurant)} />
         </div>
-      ))}
-      <CartBanner restaurant={convertObjectWithDecimal(restaurant)} />
-    </div>
+      </div>
+
+      <div className="laptop:block">
+        <Header />
+        <div className="w-full px-44">
+          <div className="mt-10 flex w-full gap-9">
+            <div className="relative flex-1">
+              <Image
+                src={restaurant.imageUrl}
+                alt={restaurant.name}
+                fill
+                className="rounded-md object-cover"
+              />
+            </div>
+
+            <div className="flex h-[550px] w-[400px] flex-col">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-1 items-center gap-[0.375rem]">
+                  <div className="relative h-10 w-10">
+                    <Image
+                      src={restaurant.imageUrl}
+                      sizes="100%"
+                      alt={restaurant.name}
+                      fill
+                      className="rounded-full object-cover"
+                    />
+                  </div>
+
+                  <h1 className="truncate text-xl font-semibold">
+                    {restaurant.name}
+                  </h1>
+                </div>
+                <div className="flex w-fit items-center rounded-full bg-[#323232] px-[11px] py-[4px]">
+                  <TiStarFullOutline color="#FFB100" size={20} />
+                  <span className="block text-sm font-semibold text-white">
+                    5.0
+                  </span>
+                </div>
+              </div>
+              <DeliveryDetail
+                restaurant={convertObjectWithDecimal(restaurant)}
+              />
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                {restaurant.categories.map((category) => (
+                  <div
+                    key={category.id}
+                    className="min-w-[167px] rounded-[8px] bg-[#f4f4f4] py-1 text-center"
+                  >
+                    <span className="text-[17px] text-muted-foreground">
+                      {" "}
+                      {category.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex-1 overflow-y-scroll">
+                <h2 className="text-lg font-semibold text-foreground ">
+                  Sobre
+                </h2>
+                <p className="pr-2 text-[16px] text-[#7E8392]">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
+                  ipsa nemo, voluptatem cupiditate magni error eveniet aut,
+                  libero, quaerat voluptas impedit? Maiores consectetur error,
+                  consequuntur veritatis enim minima nulla, tempore earum facere
+                  provident nihil architecto.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* TODO mostrar produtos mais pedidos */}
+        <div className="mb-8 mt-8 space-y-4">
+          <h2 className="px-44 text-xl font-semibold">Mais pedidos</h2>
+          <ProductsList products={restaurant.products} />
+        </div>
+
+        <div className="mb-16">
+          {restaurant.categories.map((category) => (
+            <div className="mt-6 space-y-4 " key={category.id}>
+              <h2 className="px-44 text-xl font-semibold">{category.name}</h2>
+              <ProductsList products={category.products} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
 

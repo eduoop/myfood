@@ -48,6 +48,25 @@
   --radius: 0.75rem;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+  background-color: #c7c7c74f;
+  border-radius: 0 8px 8px 0;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #c7c7c713;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #94949480;
+}
+.scrollbar-thumb:hover {
+  background-color: #bdbdbd;
+}
+
 @layer base {
   * {
     @apply box-border;

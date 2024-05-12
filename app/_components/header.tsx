@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import {
   HeartIcon,
   HomeIcon,
+  Loader2,
   LogInIcon,
   LogOutIcon,
   MenuIcon,
@@ -22,15 +23,20 @@ import {
 } from "./ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
+import NavLink from "./nav-link";
 
 function Header() {
   const { data, status } = useSession();
+  const [loadingLogout, setLoadingLogout] = useState(false);
+  const [loadingLogin, setLoadingLogin] = useState(false);
 
   const handleLogin = () => {
+    setLoadingLogin(true);
     signIn("google");
   };
 
   const handleSignOut = () => {
+    setLoadingLogout(true);
     signOut();
   };
 
@@ -90,7 +96,11 @@ function Header() {
               <div className="flex items-center justify-between pt-10">
                 <h2 className="font-semibold">Olá. Faça seu login</h2>
                 <Button size={"icon"} onClick={handleLogin}>
-                  <LogInIcon />
+                  {loadingLogin ? (
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                  ) : (
+                    <LogInIcon />
+                  )}
                 </Button>
               </div>
             </>
@@ -101,42 +111,20 @@ function Header() {
           </div>
 
           <div className="space-y-2">
-            <Button
-              variant={"ghost"}
-              className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-            >
-              <HomeIcon size={16} />
-              <span className="block">Início</span>
-            </Button>
+            <NavLink Icon={HomeIcon} title={"Início"} href={"/"} />
 
             {isLogged && (
               <>
-                <Button
-                  variant={"ghost"}
-                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-                  asChild
-                >
-                  <Link href={"/my-orders"}>
-                    <ScrollTextIcon size={16} />
-                    <span className="block">Meus pedidos</span>
-                  </Link>
-                </Button>
-
-                <Button
-                  variant={"ghost"}
-                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-                  asChild
-                >
-                  <Link href={"/my-favorite-restaurants"}>
-                    <HeartIcon
-                      size={16}
-                      className="min-h-[16px] min-w-[16px]"
-                    />
-                    <span className="block truncate">
-                      Restaurantes favoritos
-                    </span>
-                  </Link>
-                </Button>
+                <NavLink
+                  Icon={ScrollTextIcon}
+                  title={"Meus pedidos"}
+                  href={"/my-orders"}
+                />
+                <NavLink
+                  Icon={HeartIcon}
+                  title={"Restaurantes favoritos"}
+                  href={"/my-favorite-restaurants"}
+                />
               </>
             )}
           </div>
@@ -150,8 +138,13 @@ function Header() {
               variant={"ghost"}
               className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
               onClick={handleSignOut}
+              disabled={loadingLogout}
             >
-              <LogOutIcon size={16} className="min-h-[16px] min-w-[16px]" />
+              {loadingLogout ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <LogOutIcon size={16} className="min-h-[16px] min-w-[16px]" />
+              )}
               <span className="truncate">Sair da conta</span>
             </Button>
           )}
