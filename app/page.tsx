@@ -79,7 +79,7 @@ export default async function Home() {
         <ProductsList products={products} />
       </div>
 
-      <div className="my-10 hidden grid-cols-2 gap-5 px-44 laptop:grid">
+      <div className="mb-5 mt-10 hidden grid-cols-2 gap-5 px-44 laptop:grid">
         <Link href={`/categories/${pizzasCategory?.id}/products`}>
           <PromoBanner
             src={"/promobanner-1.png"}

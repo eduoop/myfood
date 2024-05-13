@@ -136,7 +136,7 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
         </div>
       </div>
 
-      <div className="laptop:block">
+      <div className="hidden laptop:block">
         <Header />
         <div className="w-full px-44">
           <div className="mt-10 flex w-full gap-9">

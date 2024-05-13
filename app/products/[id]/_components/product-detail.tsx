@@ -38,6 +38,9 @@ import {
   AlertDialogTrigger,
 } from "@/app/_components/ui/alert-dialog";
 import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
+import { TiStarFullOutline } from "react-icons/ti";
+import Header from "@/app/_components/header";
+import CartBanner from "@/app/restaurants/[id]/_components/cart-banner";
 
 interface ProductDetailProps {
   product: Prisma.ProductGetPayload<{
@@ -95,7 +98,7 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
 
   return (
     <>
-      <div className="relative mt-[-1.5rem] rounded-t-3xl bg-white py-6">
+      <div className="relative mt-[-1.5rem] rounded-t-3xl bg-white py-6 laptop:hidden">
         <div className="flex items-center gap-[0.375rem] px-5">
           <div className="relative h-6 w-6">
             <Image
@@ -184,6 +187,123 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
           </Button>
         </div>
       </div>
+
+      <div className="hidden laptop:block">
+        <Header />
+        <div className="w-full px-44">
+          <div className="mt-10 flex w-full gap-9">
+            <div className="relative flex-1">
+              <Image
+                src={product.imageUrl}
+                alt={product.name}
+                fill
+                className="aspect-square rounded-md object-cover"
+              />
+            </div>
+
+            <div className="flex h-[550px] w-[400px] flex-col">
+              <div className="">
+                <div className="flex flex-1 items-center gap-[0.375rem]">
+                  <div className="relative h-6 w-6">
+                    <Image
+                      src={product.restaurant.imageUrl}
+                      sizes="100%"
+                      alt={product.restaurant.name}
+                      fill
+                      className="rounded-full object-cover"
+                    />
+                  </div>
+
+                  <h3 className="truncate text-sm font-[400] text-[#7E8392]">
+                    {product.restaurant.name}
+                  </h3>
+                </div>
+                <h1 className="mt-2 truncate text-2xl font-semibold">
+                  {product.name}
+                </h1>
+              </div>
+
+              <div className="mt-3 flex w-full items-center justify-between">
+                {/* PREÇO COM DESCONTO */}
+                <div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-xl font-semibold">
+                        {formatCurrency(calculateProductTotalPrice(product))}
+                      </h2>
+                      {product.discountPercentage > 0 && (
+                        <DiscountBadge product={product} />
+                      )}
+                    </div>
+                  </div>
+
+                  {/* PREÇO SEM DESCONTO */}
+
+                  {product.discountPercentage > 0 && (
+                    <span className="block text-sm text-muted-foreground">
+                      De: {formatCurrency(Number(product.price))}
+                    </span>
+                  )}
+                </div>
+
+                {/* Quantidade */}
+                <div className="flex select-none items-center gap-3 text-center">
+                  <Button
+                    size={"icon"}
+                    variant={"ghost"}
+                    className="border border-solid border-muted-foreground"
+                    onClick={handleDecreaseQuantity}
+                    disabled={quantity === 1}
+                  >
+                    <ChevronLeftIcon />
+                  </Button>
+                  <span className="w-4">{quantity}</span>
+                  <Button
+                    disabled={quantity === maxQuantity}
+                    size={"icon"}
+                    onClick={handleIncreaseQuantity}
+                  >
+                    <ChevronRightIcon />
+                  </Button>
+                </div>
+              </div>
+
+              <DeliveryDetail
+                restaurant={convertObjectWithDecimal(product.restaurant)}
+              />
+
+              <div className="mt-6 flex-1 overflow-y-scroll">
+                <h2 className="text-lg font-semibold text-foreground ">
+                  Sobre
+                </h2>
+                <p className="pr-2 text-[16px] text-[#7E8392]">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
+                  ipsa nemo, voluptatem cupiditate magni error eveniet aut,
+                  libero, quaerat voluptas impedit? Maiores consectetur error,
+                  consequuntur veritatis enim minima nulla, tempore earum facere
+                  provident nihil architecto.
+                </p>
+              </div>
+
+              <div className="mt-6 px-5">
+                <Button
+                  onClick={handleAddToCart}
+                  className="w-full font-semibold"
+                >
+                  Adicionar á sacola
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="my-6 space-y-3">
+          <h3 className="px-44 font-semibold">Sucos</h3>
+          <ProductsList products={complementaryProducts} />
+        </div>
+      </div>
+
+      <CartBanner restaurant={convertObjectWithDecimal(product.restaurant)} />
 
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
         <SheetContent className="w-[85vw]">

@@ -40,7 +40,9 @@ async function Products({ params }: ProductsProps) {
 
   return (
     <div>
-      <ProductImage product={product} />
+      <div className="laptop:hidden">
+        <ProductImage product={product} />
+      </div>
 
       {/* TITULO E PREÇO */}
       <ProductDetail product={product} complementaryProducts={juices} />
