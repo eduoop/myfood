@@ -51,7 +51,7 @@ function Header() {
             alt="iclone"
             sizes="100%"
             fill
-            className="object-contain"
+            className="object-cover"
           />
         </div>
       </Link>

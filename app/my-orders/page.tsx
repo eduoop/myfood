@@ -32,10 +32,12 @@ async function MyOrders() {
     <>
       <Header />
 
-      <div className="py-6">
-        <h2 className="px-3 text-lg font-semibold">Meus Pedidos</h2>
+      <div className="px-3 py-6 laptop:px-44">
+        <h2 className="text-lg font-semibold laptop:mb-5 laptop:text-xl">
+          Meus Pedidos
+        </h2>
 
-        <div className="space-y-4 px-3 pt-1">
+        <div className="space-y-4 pt-1 ">
           {orders.map((order) => (
             <OrderItem key={order.id} order={order} />
           ))}
