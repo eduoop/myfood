@@ -16,10 +16,10 @@ async function Recommended() {
     <>
       <Header />
 
-      <div className="px-5 py-6">
+      <div className="px-5 py-6 laptop:px-44">
         <h2 className="mb-6 text-lg font-semibold">Produtos Recomendados</h2>
 
-        <div className="grid w-full grid-cols-2 gap-6">
+        <div className="grid w-full grid-cols-2 gap-6 laptop:grid laptop:grid-cols-5 desktop:grid-cols-6">
           {products.map((product) => (
             <ProductItem
               key={product.id}

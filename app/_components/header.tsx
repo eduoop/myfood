@@ -28,9 +28,10 @@ import Search from "./search";
 
 interface HeaderProps {
   search?: boolean;
+  searchParams?: string;
 }
 
-function Header({ search = true }: HeaderProps) {
+function Header({ search = true, searchParams }: HeaderProps) {
   const { data, status } = useSession();
   const [loadingLogout, setLoadingLogout] = useState(false);
   const [loadingLogin, setLoadingLogin] = useState(false);
@@ -65,7 +66,7 @@ function Header({ search = true }: HeaderProps) {
         <div className="hidden w-1/2 laptop:block">
           <Search
             defaultValues={{
-              search: "",
+              search: searchParams ?? "",
             }}
           />
         </div>

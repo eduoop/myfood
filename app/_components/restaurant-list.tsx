@@ -37,7 +37,7 @@ async function RestaurantList({ restaurantsProps }: RestaurantListProps) {
           />
         ))}
       </div>
-      <div className="hidden gap-3 laptop:grid laptop:grid-cols-3 desktop:grid-cols-4">
+      <div className="hidden gap-3 laptop:grid laptop:grid-cols-3 laptop:gap-6 desktop:grid-cols-3">
         {restaurants.map((restaurant) => (
           <RestaurantItem
             key={restaurant.id}

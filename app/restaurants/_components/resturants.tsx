@@ -33,7 +33,7 @@ function Restaurants({ userFavoritesRestaurants }: RestaurantsProps) {
 
   return (
     <>
-      <Header />
+      <Header searchParams={search} />
 
       <div className="px-5 py-6 laptop:px-44">
         <h2 className="mb-6 text-lg font-semibold">

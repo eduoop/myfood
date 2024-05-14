@@ -33,16 +33,8 @@ async function CategoriesPage({ params }: CategoriesPageProps) {
         take: 10,
       },
       restaurants: {
-        take: 4,
+        take: 3,
       },
-    },
-  });
-
-  const session = await getServerSession(authOptions);
-
-  const userFavoritesRestaurants = await db.userFavoriteRestaurant.findMany({
-    where: {
-      userId: session?.user?.id,
     },
   });
 
