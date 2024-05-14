@@ -32,16 +32,29 @@ async function MyFavoriteRestaurants() {
         <h2 className="mb-6 text-lg font-semibold">Restaurantes Favoritos</h2>
 
         {userFavoriteRestaurants.length > 0 ? (
-          <div className="flex w-full flex-col gap-6">
-            {userFavoriteRestaurants.map(({ restaurant }) => (
-              <RestaurantItem
-                key={restaurant.id}
-                restaurant={convertObjectWithDecimal(restaurant)}
-                className="min-w-full max-w-full"
-                userFavoritesRestaurants={userFavoriteRestaurants}
-              />
-            ))}
-          </div>
+          <>
+            <div className="flex w-full flex-col gap-6 tablet:hidden">
+              {userFavoriteRestaurants.map((restaurant) => (
+                <RestaurantItem
+                  key={restaurant.restaurant.id}
+                  restaurant={convertObjectWithDecimal(restaurant.restaurant)}
+                  className="min-w-full max-w-full"
+                  userFavoritesRestaurants={userFavoriteRestaurants}
+                />
+              ))}
+            </div>
+
+            <div className="hidden gap-4 tablet:grid tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-3">
+              {userFavoriteRestaurants.map((restaurant) => (
+                <RestaurantItem
+                  key={restaurant.restaurant.id}
+                  restaurant={convertObjectWithDecimal(restaurant.restaurant)}
+                  className="min-w-full max-w-full"
+                  userFavoritesRestaurants={userFavoriteRestaurants}
+                />
+              ))}
+            </div>
+          </>
         ) : (
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="font-semibold">
