@@ -7,14 +7,14 @@ async function ResponsiveCategoryList() {
 
   return (
     <>
-      <div className="flex gap-2 overflow-x-scroll px-5 pb-1 pt-6 desktop:hidden [&&::-webkit-scrollbar]:hidden">
+      <div className="flex gap-2 overflow-x-scroll px-5 pb-1 pt-6 tablet:hidden [&&::-webkit-scrollbar]:hidden">
         {categories.map((category) => (
           <CategoryItem key={category.id} category={category} />
         ))}
       </div>
 
-      <div className="hidden w-full items-center justify-center desktop:flex">
-        <div className="flex w-full justify-between px-44 py-10">
+      <div className="hidden tablet:block">
+        <div className="grid w-full grid-cols-6 gap-3 px-5 py-10 laptop:px-44">
           {categories.map((category) => (
             <CategoryItem key={category.id} category={category} />
           ))}

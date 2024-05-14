@@ -11,7 +11,7 @@ function CategoryItem({ category }: CategoryItemProps) {
   return (
     <Link
       href={`/categories/${category.id}/products`}
-      className="flex min-w-fit items-center gap-3 rounded-full bg-white px-4 py-1 shadow-md"
+      className="flex min-w-fit items-center gap-3 rounded-full bg-white px-4 py-1 shadow-md tablet:min-w-full"
     >
       <div className="relative h-[30px] w-[30px] laptop:h-[45px] laptop:w-[45px]">
         <Image
@@ -23,7 +23,7 @@ function CategoryItem({ category }: CategoryItemProps) {
         />
       </div>
 
-      <p className="text-sm font-semibold laptop:text-[16px]">
+      <p className="truncate text-sm font-semibold laptop:text-[16px]">
         {category.name}
       </p>
     </Link>
