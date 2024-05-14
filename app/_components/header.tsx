@@ -24,8 +24,13 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import NavLink from "./nav-link";
+import Search from "./search";
 
-function Header() {
+interface HeaderProps {
+  search?: boolean;
+}
+
+function Header({ search = true }: HeaderProps) {
   const { data, status } = useSession();
   const [loadingLogout, setLoadingLogout] = useState(false);
   const [loadingLogin, setLoadingLogin] = useState(false);
@@ -43,7 +48,7 @@ function Header() {
   const isLogged = data?.user ? true : false;
 
   return (
-    <div className="flex justify-between px-5 pt-6 laptop:pb-2">
+    <div className="flex justify-between px-5 pb-4 pt-4 laptop:px-44">
       <Link href={"/"}>
         <div className="relative h-[30px] w-[100px]">
           <Image
@@ -55,6 +60,16 @@ function Header() {
           />
         </div>
       </Link>
+
+      {search && (
+        <div className="hidden w-1/2 laptop:block">
+          <Search
+            defaultValues={{
+              search: "",
+            }}
+          />
+        </div>
+      )}
 
       <Sheet>
         <SheetTrigger asChild>

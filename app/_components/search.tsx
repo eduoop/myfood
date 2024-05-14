@@ -54,7 +54,7 @@ function Search({ defaultValues }: SearchProps) {
           )}
         />
 
-        <Button size={"icon"} className="tablet:aspect-square">
+        <Button size={"icon"} className="aspect-square">
           <SearchIcon size={18} />
         </Button>
       </form>

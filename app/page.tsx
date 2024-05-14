@@ -55,7 +55,7 @@ export default async function Home() {
 
   return (
     <>
-      <Header />
+      <Header search={false} />
 
       <ResponsiveSearch />
 
