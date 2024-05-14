@@ -22,12 +22,23 @@ async function RecommendedRestaurants() {
     <>
       <Header />
 
-      <div className="px-5 py-6">
+      <div className="px-5 py-6 laptop:px-44">
         <h2 className="mb-6 text-lg font-semibold">
           Restaurantes Recomendados
         </h2>
 
-        <div className="flex w-full flex-col gap-6">
+        <div className="flex w-full flex-col gap-6 tablet:hidden">
+          {restaurants.map((restaurant) => (
+            <RestaurantItem
+              key={restaurant.id}
+              restaurant={convertObjectWithDecimal(restaurant)}
+              className="min-w-full max-w-full"
+              userFavoritesRestaurants={userFavoritesRestaurants}
+            />
+          ))}
+        </div>
+
+        <div className="hidden gap-4 tablet:grid tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-3">
           {restaurants.map((restaurant) => (
             <RestaurantItem
               key={restaurant.id}

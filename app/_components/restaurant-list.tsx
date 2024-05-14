@@ -4,12 +4,19 @@ import RestaurantItem from "./restaurant-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../_lib/auth";
 import { convertObjectWithDecimal } from "../_helpers/convert-object-with-decimal";
+import { Restaurant } from "@prisma/client";
 
-async function RestaurantList() {
+interface RestaurantListProps {
+  restaurantsProps?: Restaurant[];
+}
+
+async function RestaurantList({ restaurantsProps }: RestaurantListProps) {
   // TODO: trazer restaurantes com maior número de pedidos
-  const restaurants = await db.restaurant.findMany({
-    take: 4,
-  });
+  const restaurants = !restaurantsProps
+    ? await db.restaurant.findMany({
+        take: 4,
+      })
+    : restaurantsProps;
 
   const session = await getServerSession(authOptions);
 
