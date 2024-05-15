@@ -41,6 +41,7 @@ import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-dec
 import { TiStarFullOutline } from "react-icons/ti";
 import Header from "@/app/_components/header";
 import CartBanner from "@/app/restaurants/[id]/_components/cart-banner";
+import ArrowBack from "@/app/_components/arrow-back";
 
 interface ProductDetailProps {
   product: Prisma.ProductGetPayload<{
@@ -181,7 +182,7 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
           <ProductsList products={complementaryProducts} />
         </div>
 
-        <div className="mt-6 px-5">
+        <div className="mb-20 mt-6 px-5">
           <Button onClick={handleAddToCart} className="w-full font-semibold">
             Adicionar á sacola
           </Button>
@@ -190,6 +191,11 @@ function ProductDetail({ product, complementaryProducts }: ProductDetailProps) {
 
       <div className="hidden laptop:block">
         <Header />
+
+        <div className="mb-6 px-5 pt-3 laptop:px-44">
+          <ArrowBack />
+        </div>
+
         <div className="w-full px-44">
           <div className="mt-10 flex w-full gap-9">
             <div className="relative flex-1">

@@ -1,15 +1,12 @@
+import ArrowBack from "@/app/_components/arrow-back";
 import Header from "@/app/_components/header";
 import ProductItem from "@/app/_components/product-item";
 import ProductsList from "@/app/_components/products-list";
 import RestaurantItem from "@/app/_components/restaurant-item";
 import RestaurantList from "@/app/_components/restaurant-list";
-import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
-import { authOptions } from "@/app/_lib/auth";
 import { db } from "@/app/_lib/prisma";
-import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 import React from "react";
-
 interface CategoriesPageProps {
   params: {
     id: string;
@@ -46,7 +43,11 @@ async function CategoriesPage({ params }: CategoriesPageProps) {
     <>
       <Header />
 
-      <div className="py-6 ">
+      <div>
+        <div className="mb-6 px-5 pt-3 laptop:px-44">
+          <ArrowBack />
+        </div>
+
         <h2 className="mb-6 px-5 text-lg font-semibold laptop:px-44">
           {category.name}
         </h2>

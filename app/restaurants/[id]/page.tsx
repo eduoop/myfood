@@ -14,6 +14,7 @@ import { authOptions } from "@/app/_lib/auth";
 import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
 import Header from "@/app/_components/header";
 import { TiStarFullOutline } from "react-icons/ti";
+import ArrowBack from "@/app/_components/arrow-back";
 
 interface RestaurantPageProps {
   params: {
@@ -138,6 +139,11 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
 
       <div className="hidden laptop:block">
         <Header />
+
+        <div className="mb-6 px-5 pt-3 laptop:px-44">
+          <ArrowBack />
+        </div>
+
         <div className="w-full px-44">
           <div className="mt-10 flex w-full gap-9">
             <div className="relative flex-1">

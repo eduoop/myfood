@@ -7,6 +7,7 @@ import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
 import Header from "../../_components/header";
 import RestaurantItem from "../../_components/restaurant-item";
 import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
+import ArrowBack from "@/app/_components/arrow-back";
 
 interface RestaurantsProps {
   userFavoritesRestaurants?: UserFavoriteRestaurant[];
@@ -35,7 +36,11 @@ function Restaurants({ userFavoritesRestaurants }: RestaurantsProps) {
     <>
       <Header searchParams={search} />
 
-      <div className="px-5 py-6 laptop:px-44">
+      <div className="mb-6 px-5 pt-3 laptop:px-44">
+        <ArrowBack />
+      </div>
+
+      <div className="px-5 laptop:px-44">
         <h2 className="mb-6 text-lg font-semibold">
           Resultados para &ldquo;{search}&ldquo;
         </h2>
