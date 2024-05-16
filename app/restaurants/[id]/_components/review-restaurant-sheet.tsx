@@ -61,6 +61,7 @@ function ReviewRestaurantSheet({
     if (!data?.user.id) {
       setLoading(false);
       return toast({ title: "Faça o login para avaliar" });
+      setLoading(false);
     }
 
     const formattedData = {
