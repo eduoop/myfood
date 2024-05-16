@@ -55,12 +55,12 @@ function ReviewRestaurantSheet({
 
   const { data } = useSession();
 
-  if (!data?.user.id) {
-    return notFound();
-  }
-
   const handleSubmit = async (dataReview: z.infer<typeof formSchema>) => {
     setLoading(true);
+
+    if (!data?.user.id) {
+      return toast({ title: "Faça o login para avaliar" });
+    }
 
     const formattedData = {
       note: dataReview.note,
