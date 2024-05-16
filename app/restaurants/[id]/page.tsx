@@ -1,5 +1,4 @@
 import { db } from "@/app/_lib/prisma";
-import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
 import { notFound } from "next/navigation";
 import React from "react";
 import RestaurantImage from "./_components/restaurant-image";
@@ -8,14 +7,14 @@ import { StarIcon } from "lucide-react";
 import DeliveryDetail from "@/app/_components/delivery-detail";
 import ProductsList from "@/app/_components/products-list";
 import CartBanner from "./_components/cart-banner";
-import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/_lib/auth";
 import { convertObjectWithDecimal } from "@/app/_helpers/convert-object-with-decimal";
 import Header from "@/app/_components/header";
 import { TiStarFullOutline } from "react-icons/ti";
 import ArrowBack from "@/app/_components/arrow-back";
-
+import { Sheet, SheetTrigger } from "@/app/_components/ui/sheet";
+import ReviewRestaurantTrigger from "./_components/review-restaurant-trigger";
 interface RestaurantPageProps {
   params: {
     id: string;
@@ -96,11 +95,15 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
 
               <h1 className="text-xl font-semibold">{restaurant.name}</h1>
             </div>
-
-            <div className="flex items-center gap-[3px] rounded-full bg-foreground px-2 py-[2px] text-white">
-              <StarIcon size={12} className="fill-yellow-500 text-yellow-500" />
-              <span className="text-xs font-semibold">5.0</span>
-            </div>
+            <ReviewRestaurantTrigger restaurantId={restaurant.id}>
+              <div className="flex items-center gap-[3px] rounded-full bg-foreground px-2 py-[2px] text-white">
+                <StarIcon
+                  size={12}
+                  className="fill-yellow-500 text-yellow-500"
+                />
+                <span className="text-xs font-semibold">5.0</span>
+              </div>
+            </ReviewRestaurantTrigger>
           </div>
 
           <div className="px-5">
@@ -172,12 +175,14 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
                     {restaurant.name}
                   </h1>
                 </div>
-                <div className="flex w-fit items-center rounded-full bg-[#323232] px-[11px] py-[4px]">
-                  <TiStarFullOutline color="#FFB100" size={20} />
-                  <span className="block text-sm font-semibold text-white">
-                    5.0
-                  </span>
-                </div>
+                <ReviewRestaurantTrigger restaurantId={restaurant.id}>
+                  <div className="flex w-fit items-center rounded-full border-2 bg-[#323232] px-[11px] py-[4px] duration-150 hover:bg-zinc-800/80">
+                    <TiStarFullOutline color="#FFB100" size={20} />
+                    <span className="block text-sm font-semibold text-white">
+                      5.0
+                    </span>
+                  </div>
+                </ReviewRestaurantTrigger>
               </div>
               <DeliveryDetail
                 restaurant={convertObjectWithDecimal(restaurant)}
