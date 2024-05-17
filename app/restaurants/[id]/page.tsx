@@ -95,7 +95,10 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
 
               <h1 className="text-xl font-semibold">{restaurant.name}</h1>
             </div>
-            <ReviewRestaurantTrigger restaurantId={restaurant.id}>
+            <ReviewRestaurantTrigger
+              userId={session?.user.id}
+              restaurantId={restaurant.id}
+            >
               <div className="flex items-center gap-[3px] rounded-full bg-foreground px-2 py-[2px] text-white">
                 <StarIcon
                   size={12}
@@ -159,7 +162,7 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
             </div>
 
             <div className="flex h-[550px] w-[400px] flex-col">
-              <div className="flex items-center justify-between gap-2">
+              <div className="gatrip-2 flex items-center justify-between">
                 <div className="flex flex-1 items-center gap-[0.375rem]">
                   <div className="relative h-10 w-10">
                     <Image
