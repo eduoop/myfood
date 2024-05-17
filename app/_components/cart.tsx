@@ -164,10 +164,11 @@ function Cart({ setIsOpen }: CartProps) {
       <AlertDialog open={isConfirmedOpen} onOpenChange={setIsConfirmedOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>
+              Tem certeza que deseja finalizar seu pedido?
+            </AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              Ao finalizar seu pedido, não poderá mais alterar os itens.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
