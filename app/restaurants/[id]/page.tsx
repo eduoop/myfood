@@ -175,7 +175,10 @@ async function RestaurantPage({ params }: RestaurantPageProps) {
                     {restaurant.name}
                   </h1>
                 </div>
-                <ReviewRestaurantTrigger restaurantId={restaurant.id}>
+                <ReviewRestaurantTrigger
+                  userId={session?.user.id}
+                  restaurantId={restaurant.id}
+                >
                   <div className="flex w-fit items-center rounded-full border-2 bg-[#323232] px-[11px] py-[4px] duration-150 hover:bg-zinc-800/80">
                     <TiStarFullOutline color="#FFB100" size={20} />
                     <span className="block text-sm font-semibold text-white">

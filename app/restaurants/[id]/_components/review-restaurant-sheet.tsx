@@ -39,12 +39,14 @@ interface ReviewRestaurantSheetProps {
   defaultValues: z.infer<typeof formSchema>;
   restaurantId: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  userId?: string;
 }
 
 function ReviewRestaurantSheet({
   defaultValues,
   restaurantId,
   setOpen,
+  userId,
 }: ReviewRestaurantSheetProps) {
   const [loading, setLoading] = useState(false);
 
@@ -53,22 +55,19 @@ function ReviewRestaurantSheet({
     defaultValues: defaultValues,
   });
 
-  const { data } = useSession();
-
   const handleSubmit = async (dataReview: z.infer<typeof formSchema>) => {
     setLoading(true);
 
-    if (!data?.user.id) {
+    if (!userId) {
       setLoading(false);
       return toast({ title: "Faça o login para avaliar" });
-      setLoading(false);
     }
 
     const formattedData = {
       note: dataReview.note,
       feedback: dataReview.description,
       restaurantId,
-      userId: data.user.id!,
+      userId: userId,
     };
 
     try {
