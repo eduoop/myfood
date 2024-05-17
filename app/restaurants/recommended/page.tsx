@@ -1,3 +1,4 @@
+import ArrowBack from "@/app/_components/arrow-back";
 import Header from "@/app/_components/header";
 import RestaurantItem from "@/app/_components/restaurant-item";
 import RestaurantList from "@/app/_components/restaurant-list";
@@ -22,7 +23,11 @@ async function RecommendedRestaurants() {
     <>
       <Header />
 
-      <div className="px-5 py-6 laptop:px-44">
+      <div className="mb-6 px-5 pt-3 laptop:px-44">
+        <ArrowBack />
+      </div>
+
+      <div className="px-5  laptop:px-44">
         <h2 className="mb-6 text-lg font-semibold">
           Restaurantes Recomendados
         </h2>
