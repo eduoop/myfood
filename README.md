@@ -2,7 +2,7 @@
 
 > Um site onde os usuários conseguem listar e descobrir comidas, encontrar restaurantes, e pedir comidas e bebidas de restaurantes.
 
-[[./public/project-presentation.png]]
+[./public/project-presentation.png]
 
 ## 💻 Pré-requisitos
 
