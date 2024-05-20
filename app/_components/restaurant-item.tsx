@@ -7,14 +7,11 @@ import { formatCurrency } from "../_helpers/price";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { cn } from "../_lib/utils";
-import {
-  favoriteRestaurant,
-  unfavoriteRestaurant,
-} from "../_actions/restaurant";
 import { useToast } from "@/app/_components/ui/use-toast";
 import { useSession } from "next-auth/react";
 import { isRestaurantCurrentlyFavorite } from "../_helpers/restaurant";
 import useFavoriteRestaurant from "../_hooks/use-favorite-restaurant";
+import { calculateAverage } from "../_actions/calculate-average";
 
 interface RestaurantItemProps {
   restaurant: Restaurant;
@@ -62,7 +59,10 @@ function RestaurantItem({
 
           <div className="absolute left-2 top-2 flex items-center gap-[2px] rounded-full bg-primary-foreground px-2 py-[2px] text-black">
             <StarIcon size={12} className="fill-yellow-500 text-yellow-500" />
-            <span className="text-xs font-semibold">5.0</span>
+            <span className="text-xs font-semibold">
+              {calculateAverage(restaurant.id)}
+              .0
+            </span>
           </div>
 
           {data?.user.id && (
